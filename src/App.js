@@ -8,7 +8,7 @@ export class App extends Component {
     render() {
         return (
             <div>
-                hello world!!!
+                jsx简介
             </div>
         )
     }
