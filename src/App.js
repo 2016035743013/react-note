@@ -1,33 +1,74 @@
 import React, { Component } from 'react';
 import './App.css'
 
-class Left extends Component {
+class SearchBar extends Component {
     render() {
         return (
             <>
-                <span>left</span>
+                <input type="text" />
+                <div>
+                    <input type="checkbox" />
+                    only show products in stock
+                </div>
             </>
         )
     }
 }
 
-class Right extends Component {
+class Title extends Component {
     render() {
         return (
-            <>
-                <span>Right</span>
-            </>
+            <div>
+                <span>
+                    {this.props.type}
+                </span>
+                <span>
+                    {this.props.price}
+                </span>
+            </div>
         )
     }
 }
-
-class Main extends Component {
+class Products extends Component {
     render() {
         return (
+            <div>
+                <span>
+                    {this.props.name}
+                </span>
+                <span>
+                    {this.props.price}
+                </span>
+            </div>
+        )
+    }
+}
+class ProductTable extends Component {
+    render() {
+        const data = [
+            { category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" },
+            { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" },
+            { category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball" },
+            { category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch" },
+            { category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5" },
+            { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" }
+        ];
+        return (
             <>
-                {this.props.left}
-                {this.props.right}
-            </>
+                <SearchBar />
+                <div>
+                    <span>name</span> &emsp;
+                    <span>Price</span>
+                </div>
+                <Title type={'sporting goods'} price={'Price'} />
+                {
+                    data.map((val, index) => {
+                        return (
+                            <Products key={index} name={val.category} price={val.price} />
+                        )
+                    })
+                }
+            </> 
         )
     }
 }
@@ -39,11 +80,10 @@ export class App extends Component {
         })
     }
     render() {
-        
         return (
-            <div>
-               <Main left={<Left />} right = {<Right />} />
-            </div>
+            <>
+                <ProductTable />
+            </>
         )
     }
 } 
