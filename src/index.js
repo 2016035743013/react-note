@@ -7,7 +7,6 @@ setInterval(() => {
     ReactDom.render(
         <>
         <App />
-        {new Date().getTime()}
         </>,
         document.getElementById('root')
     

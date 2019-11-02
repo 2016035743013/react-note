@@ -3,14 +3,17 @@ import { render } from 'react-dom'
 import './App.css'
 
 
-
-const element = (
-    <div>
-        <span>
-            {new Date().getTime()}
-        </span>
-    </div>
-)
+// 函数式组件
+function YourComponent(props) {
+    const formatName = () => {
+        return props.firstName + props.lastName;
+    }
+    return (
+        <>
+            {formatName()}
+        </>
+    )
+}
 export class App extends Component {
     constructor() {
         super();
@@ -18,7 +21,7 @@ export class App extends Component {
     render() {
         return (
             <div>
-                {element}
+                <YourComponent firstName='cjhcj' lastName='zhang' />
             </div>
         )
     }
