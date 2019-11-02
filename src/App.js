@@ -1,93 +1,56 @@
 import React, { Component } from 'react';
 import './App.css'
 
-// class From extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             name: ''
-//         }
-//         this.handleSubmit = this.handleSubmit.bind(this);
-//         this.handleChange = this.handleChange.bind(this);
-//     }
-//     handleSubmit(event) {
-
-//         console.log('submit !!!!');
-//         event.preventDefault();
-//     }
-//     handleChange(event) {
-//         this.setState({
-//             name: event.target.value
-//         })
-//     }
-//     render() {
-//         return (
-//             <form>
-//                 <label htmlFor="" onSubmit={this.handleSubmit}>
-//                     姓名：
-//                     <input type="text" onChange={this.handleChange} value={this.state.name} placeholder='请输入姓名'/>
-//                 </label>
-//                 <input type="submit" value='提交'/>
-//             </form>
-//         )
-//     }
-// }
-
-class Reservation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isGoing: true,
-            numberOfGuests: 2
-        };
-
-        this.handleInputChange = this.handleInputChange.bind(this);
+class Test1 extends Component {
+    constructor() {
+        super();
+        this.handleChange = this.handleChange.bind(this);
     }
-
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
+    handleChange(e) {
+        this.props.change(e.target.value);
     }
-
     render() {
         return (
-            <form>
-                <label>
-                    参与:
-            <input
-                        name="isGoing"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    来宾人数:
-            <input
-                        name="numberOfGuests"
-                        type="number"
-                        value={this.state.numberOfGuests}
-                        onChange={this.handleInputChange} />
-                </label>
-            </form>
-        );
+            <input type="text" value={this.props.value} onChange={this.handleChange}/>
+        )
+    }
+}
+
+class Test2 extends Component {
+    constructor() {
+        super();
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(e) {
+        this.props.change(e.target.value);
+    }
+    render() {
+        return (
+            <input type="text" value={this.props.value} onChange={this.handleChange}/>
+        )
     }
 }
 
 export class App extends Component {
     constructor() {
         super();
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            value: 99
+        }
+    }
+    handleChange(value) {
+        this.setState({
+            value
+        })
     }
     render() {
-
+        let test1 = this.state.value;
+        let test2 = this.state.value;
         return (
             <div>
-                <Reservation />
+                <Test1 value={test1} change = {this.handleChange} />
+                <Test2 value={test2} change = {this.handleChange} />
             </div>
         )
     }
