@@ -1,48 +1,65 @@
 import React, { Component } from 'react';
 import './App.css'
 
+function UserGreeting() {
+    return (
+        <h1>
+            hello guys;
+        </h1>
+    )
+}
 
-// class Event extends Component {
-//     constructor() {
-//         super();
-//     }
-//     handleClick(event) {
-//         // react阻止默认行为不能够使用return false 而应该使用event.preventDefault()
-//         event.preventDefault();
-//     }
-//     render() {
-//         return (
-//             <>
-//                 <a href='http://www.baidu.com' onClick={this.handleClick}>百度</a>
-//             </>
-//         )
-//     }
-// }
+function GuestGreeging() {
+    return (
+        <h1>
+            please sign up;
+        </h1>
+    )
+}
 
-class Toggle extends Component {
+function Greeting(props) {
+    if (props.isLogin) {
+        return (<UserGreeting></UserGreeting>);
+    } else {
+        return (<GuestGreeging></GuestGreeging>)
+    }
+}
+
+class LoginControl extends Component {
     constructor() {
         super();
         this.state = {
-            isOne: true
+            isLogin: false
         }
-        // this.handleToggle = this.handleToggle.bind(this) //需要在这里绑定this，否则后面如果直接调用的handletoggle方法时，方法内this的指向绘制undefined 或者在给元素绑定标签的时候使用箭头函数，然后在箭头函数里面调用handletoggle方法 或者在定义方法的时候使用表达式语法例如 const a = ()=>{}，但是，这是个实验性的语法
-        // 在 JavaScript 中，class 的方法默认不会绑定 this。如果你忘记绑定 this.handleClick 并把它传入了 onClick，当你调用这个函数的时候 this 的值为 undefined。
     }
-    handleToggle(e) {
-        this.setState((preState, props) => {
-            return {
-                isOne: !preState.isOne
-            }
+    handleLogin() {
+        this.setState({
+            isLogin: true
         })
     }
+    handleLogout() {
+        this.setState({
+            isLogin: false
+        })
+    }
+
     render() {
+        let button;
+        const isLogin = this.state.isLogin;
+        if(isLogin) {
+            button = <button onClick={this.handleLogout.bind(this)}>登出</button>;
+        } else {
+            button = <button onClick={this.handleLogin.bind(this)}>登陆</button>;
+        }
         return (
-            <button onClick={(e) => {this.handleToggle(e)}}>
-                {this.state.isOne ? 'On' : 'Off'}
-            </button>
+            <>
+                <Greeting isLogin={this.state.isLogin} />
+                {button}
+            </>
         )
     }
 }
+
 export class App extends Component {
     constructor() {
         super();
@@ -50,7 +67,7 @@ export class App extends Component {
     render() {
         return (
             <div>
-                <Toggle />
+                <LoginControl  />
             </div>
         )
     }
