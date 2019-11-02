@@ -3,8 +3,13 @@ import ReactDom from 'react-dom'
 
 import { App } from './App'
 
-ReactDom.render(
-    <App />,
-    document.getElementById('root')
-
-)
+setInterval(() => {
+    ReactDom.render(
+        <>
+        <App />
+        {new Date().getTime()}
+        </>,
+        document.getElementById('root')
+    
+    )
+}, 100);
