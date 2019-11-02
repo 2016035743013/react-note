@@ -1,45 +1,47 @@
 import React, { Component } from 'react';
 import './App.css'
 
-class Blog extends Component {
-    constructor() {
-        super();
+class From extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: ''
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleSubmit(event) {
+        
+        console.log('submit !!!!');
+        event.preventDefault();
+    }
+    handleChange(event) {
+        this.setState({
+            name: event.target.value
+        })
     }
     render() {
-        console.log(this.props.blogs);
-        let blogs = this.props.blogs;
-        const article = (
-            <ul>
-                {
-                    blogs.map((val, index) => {
-                        return (
-                            <li key={val.id}>
-                                {val.content}
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-        )
         return (
-            <div>
-                {article}
-            </div>
+            <form>
+                <label htmlFor="" onSubmit={this.handleSubmit}>
+                    姓名：
+                    <input type="text" onChange={this.handleChange} value={this.state.name} placeholder='请输入姓名'/>
+                </label>
+                <input type="submit" value='提交'/>
+            </form>
         )
     }
 }
+
 export class App extends Component {
     constructor() {
         super();
     }
     render() {
-        const data = [
-            { id: 1, title: 'test', content: 'hello test' },
-            { id: 2, title: 'world', content: 'hello world' }
-        ]
+        
         return (
             <div>
-                <Blog blogs={data} />
+                <From />
             </div>
         )
     }
